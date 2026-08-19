@@ -9,8 +9,7 @@ source_paths:
   - "oracle"
   - "sut"
   - "test_generator"
-test_paths:
-  []
+test_paths: []
 owned_paths:
   - "llm/**"
   - "oracle/**"
