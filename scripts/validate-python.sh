@@ -1,5 +1,5 @@
 #!/bin/sh
 # Managed by Python Agent Forge.
 set -eu
-uv sync --locked
+uv pip install -r requirements.txt
 uv run python -m compileall .
