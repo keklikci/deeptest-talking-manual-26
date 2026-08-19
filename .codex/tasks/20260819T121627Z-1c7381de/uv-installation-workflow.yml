@@ -1,0 +1,33 @@
+{
+  "task_id": "uv-installation-workflow",
+  "brief": "Align installation documentation and repository validation workflows with the uv project configuration.",
+  "acceptance_criteria": [
+    "Installation documentation instructs users to install and synchronize dependencies with uv.",
+    "The validation script uses uv sync or an equivalent lockfile-aware installation command.",
+    "The CI workflow installs dependencies through uv using the committed project metadata and lockfile.",
+    "The existing compileall validation continues to pass.",
+    "Legacy pip and virtual-environment instructions are removed or clearly identified as non-preferred alternatives."
+  ],
+  "owned_paths": [
+    "documentation/INSTALLATION.md",
+    "scripts/validate-python.sh",
+    ".github/workflows/python-agent-forge.yml"
+  ],
+  "exclusions": [
+    "requirements.txt",
+    "pyproject.toml",
+    "uv.lock",
+    "Application source code and tests",
+    "Credentials and CI secrets"
+  ],
+  "dependencies": [],
+  "branch": "codex/uv-installation-workflow",
+  "validation_commands": [
+    "uv run python -m compileall ."
+  ],
+  "pr": {
+    "title": "Use uv for installation and validation",
+    "base_branch": "main",
+    "merge_policy": "Require CI, independent review, and human approval before merge."
+  }
+}
