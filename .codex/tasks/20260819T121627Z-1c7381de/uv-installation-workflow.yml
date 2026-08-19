@@ -26,8 +26,12 @@
     "uv run python -m compileall ."
   ],
   "pr": {
-    "title": "Use uv for installation and validation",
+    "title": "feat(uv-installation-workflow): use uv for installation and validation",
     "base_branch": "main",
-    "merge_policy": "Require CI, independent review, and human approval before merge."
+    "merge_policy": "Require CI, independent review, and human approval before merge.",
+    "number": 5,
+    "url": "https://github.com/keklikci/deeptest-talking-manual-26/pull/5",
+    "base": "main",
+    "status": "draft"
   }
 }
