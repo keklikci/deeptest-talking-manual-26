@@ -3,17 +3,21 @@
 The code has been tested with Python 3.11 on Windows, Ubuntu 22.04 and on MacOS.
 The pipeline does not require GPU processing, unless local LLMs are used.
 
-It is recommended to install a virtual environment. For Ubuntu the instructions are:
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) first. From the repository root, use uv to create the project environment and synchronize the dependencies recorded in the lockfile:
 
 ```bash
-python3.11 -m venv venv
+uv sync
 ```
 
-After activating the environment, you need to install the dependencies in the environment:
+Run commands in the synchronized environment with `uv run`, for example:
 
 ```bash
-pip install -r requirements.txt
+uv run python main.py \
+    --time_limit_seconds 60 \
+    --n_tests 100
 ```
+
+The legacy `venv` plus `pip install -r requirements.txt` workflow is retained only as a non-preferred alternative for older checkouts that do not include the uv project metadata and lockfile.
 
 You can test the example test generators with local or cloud-based LLMs.
 To create your own test generator consider the instructions in [GUIDELINES.md](GUIDELINES.md)
