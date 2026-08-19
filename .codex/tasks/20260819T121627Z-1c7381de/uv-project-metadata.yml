@@ -1,0 +1,31 @@
+{
+  "task_id": "uv-project-metadata",
+  "brief": "Configure the repository as a uv-managed Python project with declarative dependency metadata and a reproducible lockfile.",
+  "acceptance_criteria": [
+    "A valid pyproject.toml declares the project metadata, Python 3.11 compatibility, and all runtime dependencies currently listed in requirements.txt.",
+    "A uv.lock file is generated and committed.",
+    "Dependencies resolve successfully with uv sync.",
+    "No credentials, absolute paths, or private data are added."
+  ],
+  "owned_paths": [
+    "pyproject.toml",
+    "uv.lock"
+  ],
+  "exclusions": [
+    "requirements.txt",
+    "documentation/INSTALLATION.md",
+    ".github/workflows/python-agent-forge.yml",
+    "scripts/validate-python.sh",
+    "Application source code and tests"
+  ],
+  "dependencies": [],
+  "branch": "codex/uv-project-metadata",
+  "validation_commands": [
+    "uv run python -m compileall ."
+  ],
+  "pr": {
+    "title": "Configure uv project metadata and lockfile",
+    "base_branch": "main",
+    "merge_policy": "Require CI, independent review, and human approval before merge."
+  }
+}
