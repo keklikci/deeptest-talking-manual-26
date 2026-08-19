@@ -41,7 +41,7 @@ ollama pull llama3.2
 Run example test generation with the following code:
 
 ```bash
-python main.py \
+uv run python main.py \
     --time_limit_seconds 60 \
     --n_tests 100 \
     --test_generator smart \
@@ -58,7 +58,7 @@ The format is shown in **.env_example**.
 Afterwards you can test generation with the following code:
 
 ```bash
-python main.py \
+uv run python main.py \
     --time_limit_seconds 60 \
     --n_tests 100 \
     --test_generator smart \
