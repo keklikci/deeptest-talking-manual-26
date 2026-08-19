@@ -17,5 +17,5 @@ owned_paths:
   - "test_generator/**"
 install_command: "uv pip install -r requirements.txt"
 validation_commands:
-  - "configure-per-repository"
-autonomous_execution_ready: false
+  - "uv run python -m compileall ."
+autonomous_execution_ready: true
