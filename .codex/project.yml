@@ -1,0 +1,22 @@
+# Managed by Python Agent Forge.
+version: 1
+repository: "keklikci/deeptest-talking-manual-26"
+base_branch: "main"
+python_constraint: "configure-per-repository"
+package_manager: "requirements"
+source_paths:
+  - "llm"
+  - "oracle"
+  - "sut"
+  - "test_generator"
+test_paths:
+  []
+owned_paths:
+  - "llm/**"
+  - "oracle/**"
+  - "sut/**"
+  - "test_generator/**"
+install_command: "uv pip install -r requirements.txt"
+validation_commands:
+  - "configure-per-repository"
+autonomous_execution_ready: false
