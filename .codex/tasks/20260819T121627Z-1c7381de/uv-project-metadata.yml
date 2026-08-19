@@ -24,8 +24,12 @@
     "uv run python -m compileall ."
   ],
   "pr": {
-    "title": "Configure uv project metadata and lockfile",
+    "title": "feat(uv-project-metadata): configure uv project metadata and lockfile",
     "base_branch": "main",
-    "merge_policy": "Require CI, independent review, and human approval before merge."
+    "merge_policy": "Require CI, independent review, and human approval before merge.",
+    "number": 4,
+    "url": "https://github.com/keklikci/deeptest-talking-manual-26/pull/4",
+    "base": "main",
+    "status": "draft"
   }
 }
