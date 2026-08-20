@@ -1,5 +1,31 @@
-# Benchmarking the Talking Owner's Manual (DeepTest Workshop Competition 26')
+# Exida: Stress-Testing the Talking Owner's Manual
 <p align="center"><img src="figures/teaser.png" alt="teaser" width="40%"></p>
+
+Exida is the submitted test generator for the DeepTest 2026 competition. It
+finished **second overall** and exposed warning omissions in **57% of generated
+requests** in the competition benchmark. In the controlled evaluation reported
+in the Exida methodology paper, it reached a **0.656 failure rate** and **0.905
+normalized diversity** with a fixed budget of 100 generated tests. These figures
+come from the [Exida methodology paper](https://dl.acm.org/doi/full/10.1145/3786154.3796501)
+and the [competition results paper](https://doi.org/10.1145/3786154.3796504).
+
+## How Exida works
+
+Exida turns a manual warning into a natural driver question through three
+stages:
+
+1. It selects a safety warning and generates a concrete scene around its
+   circumstances, such as weather, destination, and time pressure.
+2. It extracts the driver's intended action from that scene.
+3. It generates several concise questions, rejects ones too similar to recent
+   requests using word-set Jaccard similarity, and sends the first diverse
+   candidate to the system under test.
+
+When the oracle detects that a warning was omitted, Exida increases that
+warning's sampling probability. This feedback loop concentrates testing on
+weak spots while the recent-question filter preserves surface diversity. The
+scene and intent are temporary scaffolding: only the final question is sent to
+the assistant.
 
 ## Overview ##
 
@@ -16,7 +42,7 @@ The generated user requests are evaluated on a public simplified RAG-based infor
 <br><br>
 ![alt text](/figures/car-expert-usecase.png)
 
-## Registration
+## Competition
 
 To register for the competition, please send us your **Name**, **Affiliation & Address** to the following address: [lev.sorokin@tum.de](mailto:lev.sorokin@tum.de?subject=DeepTest%20Competition%20-%20Talking%20Manual). Use as email subject "DeepTest Competition - Talking Manual".
 
@@ -47,43 +73,15 @@ Detailed guidelines for the competition are available in [GUIDELINES](documentat
 Installation instructions of how to use the code can be found in [INSTALLATION](documentation/INSTALLATION.md).
 
 
-## Comparing the Test Generators ##
+## Evaluation
 
 Published methodology and benchmark context are collected in
 [Competition results and research context](documentation/RESULTS_AND_RESEARCH_CONTEXT.md).
 
-## Exida test generator
-
-The submitted Exida generator targets warnings that an automotive manual assistant
-should mention when answering a request. For each selected warning it creates a
-temporary, concrete driving scene, extracts the action the driver is considering,
-and turns that intent into a short natural-language question. The scene and intent
-are intermediate context; only the final question is returned to the system under
-test.
-
-Exida asks the language model for a batch of question candidates and keeps the first
-candidate whose word-set Jaccard similarity is not greater than the configured
-threshold for any recent question. This gives the generator a small diversity filter
-without requiring embeddings or access to the system under test. When the oracle
-reports an ignored warning (score below `0.5`), Exida adds another copy of that
-warning to its sampling pool for future tests.
-
-The implementation and its offline unit tests are described in
-[the Exida methodology guide](documentation/EXIDA_METHODOLOGY.md). The tests mock
-LLM calls, so they do not require credentials, network access, or downloaded models.
-
-Deciding which test generator is the best is far from trivial and, currently, remains an open challenge. 
-We use multiple metrics to rank the test generators. The first set of metrics which is available to participants is:
-
-- (num diverse warnings) Number of diverse warnings ignored.
-- (num warnings) Number of warnings ignored.
-- (embedding diversity) Avg max embedding distance between generated requests.
-- (time) Time to the first warning ignored.
-
-The second metric is applied by the jurors and relies on clustering techniques to measure the diversity of failure-inducing test cases. The more clusters are covered the more diverse are the failure types.
-As we expect that submitted tools are stochastic in nature, metrics are computed over several runs of the corresponding test generator.
-
-We combine all metrics results into a single score to rank the results.
+The competition evaluates warning omissions, warning coverage, failure-input
+diversity, and time to the first failure across repeated runs. The complete
+metric definitions and evaluation rules are maintained in the
+[competition guidelines](documentation/GUIDELINES.md).
 
 ## License ##
 
