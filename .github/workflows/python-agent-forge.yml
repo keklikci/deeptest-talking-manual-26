@@ -7,5 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
-      - run: uv sync --frozen
-      - run: uv run python -m compileall .
+      - run: uv sync --frozen --all-groups
+      - run: uv run pytest
+      - run: uv run python -m compileall llm oracle sut test_generator evaluation validator text_operators utils

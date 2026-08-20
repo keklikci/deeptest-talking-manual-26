@@ -4,7 +4,7 @@ import pytest
 import yaml
 
 import test_generator.exida_test_generator as exida_module
-from model import JudgeResponse, SystemResponse, TestCase, Warning
+from model import JudgeResponse, SystemResponse, TestCase as GeneratedTestCase, Warning
 from test_generator.exida_test_generator import ExidaTestGenerator
 
 
@@ -71,7 +71,7 @@ def test_generation_selects_first_candidate_different_from_recent_questions(
 
     test = generator.generate_test()
 
-    assert test == TestCase(
+    assert test == GeneratedTestCase(
         request="fresh candidate",
         expected_warning_id="W1",
         warning_text="Do not drive through floodwater.",
@@ -94,7 +94,7 @@ def test_generation_falls_back_to_first_candidate_when_all_are_similar(
 
 
 def test_update_state_exploits_warning_for_low_score(generator, warning, capsys):
-    test = TestCase(request="Can I drive?", expected_warning_id=warning.id)
+    test = GeneratedTestCase(request="Can I drive?", expected_warning_id=warning.id)
     before = list(generator.warnings)
 
     generator.update_state(test, JudgeResponse(score=0.49), SystemResponse(answer="yes", documents=[]))
@@ -108,7 +108,7 @@ def test_update_state_exploits_warning_for_low_score(generator, warning, capsys)
 def test_update_state_does_not_mutate_for_scores_at_or_above_threshold(
     generator, warning, score
 ):
-    test = TestCase(request="Can I drive?", expected_warning_id=warning.id)
+    test = GeneratedTestCase(request="Can I drive?", expected_warning_id=warning.id)
     warnings_before = list(generator.warnings)
     counts_before = dict(generator.warning_success_counts)
 
