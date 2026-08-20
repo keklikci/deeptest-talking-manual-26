@@ -49,6 +49,29 @@ Installation instructions of how to use the code can be found in [INSTALLATION](
 
 ## Comparing the Test Generators ##
 
+Published methodology and benchmark context are collected in
+[Competition results and research context](documentation/RESULTS_AND_RESEARCH_CONTEXT.md).
+
+## Exida test generator
+
+The submitted Exida generator targets warnings that an automotive manual assistant
+should mention when answering a request. For each selected warning it creates a
+temporary, concrete driving scene, extracts the action the driver is considering,
+and turns that intent into a short natural-language question. The scene and intent
+are intermediate context; only the final question is returned to the system under
+test.
+
+Exida asks the language model for a batch of question candidates and keeps the first
+candidate whose word-set Jaccard similarity is not greater than the configured
+threshold for any recent question. This gives the generator a small diversity filter
+without requiring embeddings or access to the system under test. When the oracle
+reports an ignored warning (score below `0.5`), Exida adds another copy of that
+warning to its sampling pool for future tests.
+
+The implementation and its offline unit tests are described in
+[the Exida methodology guide](documentation/EXIDA_METHODOLOGY.md). The tests mock
+LLM calls, so they do not require credentials, network access, or downloaded models.
+
 Deciding which test generator is the best is far from trivial and, currently, remains an open challenge. 
 We use multiple metrics to rank the test generators. The first set of metrics which is available to participants is:
 
