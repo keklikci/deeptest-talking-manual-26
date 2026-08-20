@@ -1,0 +1,37 @@
+{
+  "task_id": "ruff-config",
+  "brief": "Add Ruff as a development dependency and define repository lint settings.",
+  "acceptance_criteria": [
+    "Ruff is declared in the uv-managed project dependencies.",
+    "uv.lock is updated consistently.",
+    "pyproject.toml contains explicit Ruff configuration covering the repository's Python source paths.",
+    "Configuration is compatible with Python >=3.11 and does not include machine-specific paths or credentials."
+  ],
+  "owned_paths": [
+    "pyproject.toml",
+    "uv.lock"
+  ],
+  "exclusions": [
+    "Python source files",
+    "CI workflow files",
+    "requirements.txt"
+  ],
+  "dependencies": [],
+  "branch": "codex/ruff-config",
+  "validation_commands": [
+    "uv run python -m compileall ."
+  ],
+  "pr": {
+    "base_branch": "main",
+    "branch": "task/ruff-config",
+    "validation": [
+      "uv sync --frozen",
+      "uv run ruff check ."
+    ],
+    "title": "feat(ruff-config): feat(ruff-config): add Ruff as a development dependen",
+    "number": 6,
+    "url": "https://github.com/keklikci/deeptest-talking-manual-26/pull/6",
+    "base": "main",
+    "status": "draft"
+  }
+}
