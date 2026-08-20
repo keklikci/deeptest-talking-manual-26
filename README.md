@@ -49,6 +49,9 @@ Installation instructions of how to use the code can be found in [INSTALLATION](
 
 ## Comparing the Test Generators ##
 
+Published methodology and benchmark context are collected in
+[Competition results and research context](documentation/RESULTS_AND_RESEARCH_CONTEXT.md).
+
 ## Exida test generator
 
 The submitted Exida generator targets warnings that an automotive manual assistant
