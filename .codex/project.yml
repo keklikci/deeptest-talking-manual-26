@@ -9,7 +9,8 @@ source_paths:
   - "oracle"
   - "sut"
   - "test_generator"
-test_paths: []
+test_paths:
+  - "tests"
 owned_paths:
   - "llm/**"
   - "oracle/**"
@@ -17,5 +18,7 @@ owned_paths:
   - "test_generator/**"
 install_command: "uv pip install -r requirements.txt"
 validation_commands:
-  - "uv run python -m compileall ."
+  - "uv sync --all-groups"
+  - "uv run pytest"
+  - "uv run python -m compileall llm oracle sut test_generator evaluation validator text_operators utils"
 autonomous_execution_ready: true
