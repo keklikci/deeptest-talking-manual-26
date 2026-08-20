@@ -75,7 +75,9 @@ As we expect that submitted tools are stochastic in nature, the coverage as the 
 
 ## Sample Test Generators ##
 
-The submission package comes with an implementation of [sample test generators](../test_generators). This serves the dual purpose of providing an example on how to use our code pipeline, and a baseline for the evaluation.
+The submission package comes with implementations of the sample test generators in
+[`test_generator`](../test_generator). These serve as examples for using the code
+pipeline and as baselines for evaluation.
 
 ## Installation ##
 Check the [Installation Guide](../documentation/INSTALLATION.md)
@@ -105,7 +107,7 @@ Options:
       Path to the CSV file containing warnings (default: ./data/warnings.csv)
   
   --test_generator TYPE
-      Type of test generator to use: smart, simple, or custom (default: smart). You can run *smart* and *simple* generators to check their behaviour. You can add other types during the development, while we will evaluate the *custom* one.
+      Type of test generator to use: smart, simple, or exida (default: simple). You can run all three generators with the mock SUT during development; the competition submission uses *exida*.
   
   --sut_type TYPE
       Type of System Under Test (SUT) to use: mock or real (default: mock). You are provided with a mock system that you can use during the development. You can add other system to evaluate your testing framework. During the evaluation the *real* system will be used. You cannot access it now to avoid overfitting.
@@ -125,7 +127,7 @@ Options:
 
 Example:
 ```
-python main.py --time_limit_seconds 60 --n_tests 100 --test_generator smart
+uv run python main.py --time_limit_seconds 60 --n_tests 100 --test_generator exida
 ```
 
 ### Repository Structure
@@ -165,7 +167,7 @@ The structure of the evaluation pipeline is the following:
 
 ### Development
 
-Your goal is to implement an automated test generator. The interface is provided in [test_generator](../test_generator/test_generator.py). An example implementation of a test generator can be inspected [here](../test_generator/custom_test_generator.py). Two methods should be implemented:
+Your goal is to implement an automated test generator. The interface is provided in [test_generator](../test_generator/test_generator.py). The submitted Exida implementation can be inspected in [exida_test_generator.py](../test_generator/exida_test_generator.py). Two methods should be implemented:
 
 - `def generate_test(self) -> TestCase:` The test generator should output a testcase that is a combination of user input and the warning that is expected to be violated by the system.
 - `def update_state(self, 

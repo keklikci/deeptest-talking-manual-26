@@ -1,3 +1,4 @@
+# Stage-specific sampling and output limits for the three Exida prompts.
 generation:
   scene:
     temperature: 0.9
@@ -10,6 +11,7 @@ generation:
     max_tokens: 50
   batch_size: 3
 
+# Keep a bounded history so diversity filtering remains inexpensive.
 diversity:
   max_recent_questions: 8
   jaccard_threshold: 0.4
